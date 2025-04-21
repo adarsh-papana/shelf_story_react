@@ -1,0 +1,170 @@
+/* General modal styling */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  /* Modal content styling */
+  .modal-content {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    width: 400px;
+    max-width: 90%;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Heading styling */
+  .modal-content h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Form styling */
+  .modal-content form {
+    width: 100%; /* Full width of the modal */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center; /* Center the form elements */
+    justify-content: center; /* Center the form elements */
+    margin: 0 auto; /* Center the form */
+  }
+
+  /* Label and input container */
+  .modal-content form .form-group {
+    display: flex;
+    flex-direction: row; /* Align label and input horizontally */
+    align-items: center; /* Vertically align label and input */
+    gap: 10px; /* Add spacing between label and input */
+    width: 100%; /* Ensure the group takes the full width */
+  }
+  
+  /* Label styling */
+  .modal-content form label {
+    font-size: 14px;
+    color: #555;
+    text-align: left;
+    width: 80%;
+  }
+  
+  /* Input field styling */
+  .modal-content form input {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 90%; /* Full width of the modal */
+    margin: 0 auto; /* Center the input fields */
+  }
+  
+  .modal-content form input:focus {
+    border-color: #007bff;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+  }
+  
+  /* Button styling */
+  .modal-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    width: 80%; /* Full width of the modal */
+  }
+  
+  .modal-actions button {
+    padding: 10px 20px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+  }
+  
+  .modal-actions button:hover {
+    background-color: #0056b3;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  }
+  
+  .modal-actions button:nth-child(2) {
+    background-color: #6c757d;
+  }
+  
+  .modal-actions button:nth-child(2):hover {
+    background-color: #5a6268;
+  }
+
+  /* Dropdown styling */
+.books-dropdown {
+    list-style: none;
+    margin: 0;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    max-height: 100px;
+    overflow-y: auto;
+    background-color: #fff;
+    position: absolute;
+    top: 100%; /* Position below the input */
+    left: 45%;
+    width: 53%;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .books-dropdown ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .books-dropdown li {
+    padding: 5px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .books-dropdown li:hover {
+    background-color: #f0f0f0;
+  }
+
+  .form-group {
+    position: relative;
+  }
+
+  .books-dropdown::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .books-dropdown::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 0 10px 10px 0; /* Rounded corners on the left */
+  }
+
+  .books-dropdown::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+  }
+
+  .books-dropdown::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Darker color when hovering over the scrollbar */
+  }

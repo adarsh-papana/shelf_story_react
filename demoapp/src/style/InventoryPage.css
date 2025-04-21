@@ -1,0 +1,98 @@
+/* Center text in table cells and add borders */
+.table-container {
+    width: 100%;
+    border-collapse: collapse; /* Ensures borders don't double up */
+    margin: 20px 0; /* Adds space around the table */
+  }
+  
+  .table-container th,
+  .table-container td {
+    text-align: center; /* Centers text horizontally */
+    vertical-align: middle; /* Centers text vertically */
+    border: 1px solid #ccc; /* Adds a border to separate columns */
+    padding: 8px; /* Adds padding for better readability */
+  }
+  
+  .table-container th {
+    background-color: #f4f4f4; /* Optional: Adds a light background for headers */
+    font-weight: bold;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: flex-end; /* Centers the buttons */
+  }
+
+  .action-button {
+    padding: 7px 12px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #007bff; /* Primary blue color */
+    border: none;
+    border-radius: 8px; /* Rounded corners */
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    margin-left: 10px; /* Add spacing between buttons */
+  }
+
+  .action-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+  }
+  
+  .action-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); /* Focus ring */
+  }
+
+  h1 {
+    text-align: center;
+    color: #333; /* Dark gray color for the heading */
+  }
+
+  .action-button.delete-inventory {
+    background-color: #ff4d4f;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .action-button.delete-inventory:hover {
+    background-color: #d9363e;
+  }
+
+  .action-button.delete-book {
+    background-color: #ff4d4f;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .action-button.delete-book:hover {
+    background-color: #d9363e;
+  }
+
+  .action-button.update-stock {
+    background-color: #28a745;
+    color: #fff;
+  }
+  
+  .action-button.update-stock:hover {
+    background-color: #218838;
+  }
+
+  .action-button.update-notify {
+    background-color: #ffc107;
+    color: #212529;
+  }
+  
+  .action-button.update-notify:hover {
+    background-color: #e0a800;
+  }

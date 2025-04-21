@@ -1,0 +1,148 @@
+.admin-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #282c34;
+    color: white;
+  }
+   
+  .logo {
+    width: 60px; /* Adjust size as needed */
+    height: 60px; /* Adjust size as needed */
+    margin-right: 10px; /* Space between logo and site name */
+    border: 0.8px solid white; /* Optional: Adds a border around the logo */
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.329); /* Optional: Adds a shadow for depth */
+  }
+  
+  .rounded-logo {
+    border-radius: 50%; /* Makes the edges rounded */
+  }
+   
+  .admin-site-name {
+    font-size: 2rem;
+    font-weight: 600;
+  }
+   
+  .admin-navbar-left,
+  .admin-navbar-right {
+    display: flex;
+    align-items: center;
+  }
+
+  .admin-navbar-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .admin-search-bar-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 5px 10px;
+    background-color: #fff;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .search-icon {
+    margin-right: 8px;
+    flex-shrink: 0;
+  }
+  
+  /* Search bar input styling */
+  .admin-search-bar {
+    border: none;
+    outline: none;
+    flex: 1;
+    font-size: 14px;
+    padding: 5px;
+  }
+
+  .admin-search-bar {
+    width: 50%;
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .admin-search-bar:focus {
+    border-color: #007bff;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+  }
+   
+  .admin-notification-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+  }
+   
+  .bell-icon {
+    height: 24px;
+  }
+   
+  .admin-dropdown {
+    position: absolute;
+    right: 10px;
+    top: 50px;
+    background: white;
+    color: black;
+    width: 200px;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 10px;
+    z-index: 1000;
+  }
+   
+  .admin-dropdown-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 10px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .admin-dropdown-item:hover {
+    background-color: #f8f9fa;
+  }
+
+  .admin-dropdown-item:hover .admin-delete-button {
+    opacity: 1;
+  }
+
+  .admin-delete-button {
+    background: none;
+    border: none;
+    color: red;
+    font-size: 16px;
+    cursor: pointer;
+    opacity: 0; /* Hidden by default */
+    transition: opacity 0.3s ease;
+  }
+  
+  .admin-delete-button:hover {
+    color: darkred;
+  }
+   
+  .admin-logout-button {
+    padding: 8px 12px;
+    background: #ff5a5a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .admin-logout-button:hover {
+    background-color: #c82333;
+  }

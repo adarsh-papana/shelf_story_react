@@ -1,115 +1,9 @@
-/*import React, { useState } from "react";
-import inventoryService from "../services/inventoryService";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import "./AddInventoryPage.css"; // Create and style this CSS file
- 
-// const AddInventoryPage = () => {
-//   const navigate = useNavigate();
- 
-const AddInventoryPage = ({ onClose, onInventoryAdded }) => {
-  const [inventoryData, setInventoryData] = useState({
-    bookID: "",
-    quantity: "",
-    notifyLimit: "",
-  });
-
-  const [books, setBooks] = useState([]); // State to store the list of books
-  const [filteredBooks, setFilteredBooks] = useState([]); // State for filtered book titles
-  const [searchTitle, setSearchTitle] = useState(""); // State for the book title input
- 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setInventoryData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
- 
-  const handleSubmit = async () => {
-    try {
-      const payload = {
-        bookID: parseInt(inventoryData.bookID),
-        quantity: parseInt(inventoryData.quantity),
-        notifyLimit: parseInt(inventoryData.notifyLimit),
-      };
-      // Send data to the backend
-      await axios.post("http://localhost:5296/api/inventory", payload);
-
-      // Navigate back to the inventory list page after successful submission
-  //     navigate("/inventory");
-  //   } catch (error) {
-  //     console.error("Error adding inventory:", error);
-  //   }
-  // };
-
-      onInventoryAdded();
-      } catch (error) {
-        console.error("Error adding inventory:", error);
-      }
-    };
- 
-  return (
-    <div className="modal">
-      <div className="modal-content">
-      <h2>Add Inventory</h2>
-      <form>
-        <label>
-          Book ID:
-          <input
-            type="number"
-            name="bookID"
-            value={inventoryData.bookID}
-            onChange={handleChange}
-            placeholder="Enter Book ID"
-            min={0}
-            required
-          />
-        </label>
-        <label>
-          Quantity:
-          <input
-            type="number"
-            name="quantity"
-            value={inventoryData.quantity}
-            onChange={handleChange}
-            placeholder="Enter Quantity"
-            min={0}
-            required
-          />
-        </label>
-        <label>
-          Notify Limit:
-          <input
-            type="number"
-            name="notifyLimit"
-            value={inventoryData.notifyLimit}
-            onChange={handleChange}
-            placeholder="Enter Notify Limit"
-            min={0}
-            required
-          />
-        </label>
-        <div className="modal-actions">
-            <button type="button" onClick={handleSubmit}>
-              Submit
-            </button>
-            <button type="button" onClick={onClose}>
-              Cancel
-            </button>
-          </div>
-      </form>
-    </div>
-    </div>
-  );
-};
- 
-export default AddInventoryPage;*/
-
 import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
+// import axios from "axios";
+import AxiosInstance from "../AxiosInstance";
 import "../style/AddInventoryPage.css";
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; // Import toastify CSS
 
 const AddInventoryPage = ({ onClose, onInventoryAdded }) => {
   const [inventoryData, setInventoryData] = useState({
@@ -127,7 +21,9 @@ const AddInventoryPage = ({ onClose, onInventoryAdded }) => {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await axios.get(`https://localhost:7274/api/BookManagement`); // Replace with your API endpoint
+        const response = await AxiosInstance.get(
+          `/BookManagement`
+        ); // Replace with your API endpoint
         setBooks(response.data);
         console.log("Books fetched:", response.data);
       } catch (error) {
@@ -193,12 +89,16 @@ const AddInventoryPage = ({ onClose, onInventoryAdded }) => {
       };
 
       // Send data to the backend
-      await axios.post(`https://localhost:7274/api/Inventory`, payload);
+      await AxiosInstance.post(`/Inventory`, payload);
+      // setSuccessMessage("Inventory added successfully!");
 
       // Notify parent component about the successful addition
+      toast.success("Inventory added successfully!"); // Show success message using toast
       onInventoryAdded();
     } catch (error) {
       console.error("Error adding inventory:", error);
+      toast.error("Error adding inventory. Please try again."); // Show error message using toast
+      onInventoryAdded();
     }
   };
 
@@ -218,10 +118,7 @@ const AddInventoryPage = ({ onClose, onInventoryAdded }) => {
             {filteredBooks.length > 0 && (
               <ul className="books-dropdown">
                 {filteredBooks.map((book) => (
-                  <li
-                    key={book.bookID}
-                    onClick={() => handleSelectBook(book)}
-                  >
+                  <li key={book.bookID} onClick={() => handleSelectBook(book)}>
                     {book.title}
                   </li>
                 ))}

@@ -1,31 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import '../style/UpdateNotifyLimitModal.css'; // Create and style this CSS file
- 
-const UpdateNotifyLimitModal = ({ inventoryId, onClose, onNotifyLimitUpdated }) => {
-  const [notifyLimit, setNotifyLimit] = useState('');
+import React, { useState, useEffect } from "react";
+import AxiosInstance from "../AxiosInstance";
+import "../style/UpdateNotifyLimitModal.css"; // Create and style this CSS file
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; // Import toastify CSS
+
+const UpdateNotifyLimitModal = ({
+  inventoryId,
+  onClose,
+  onNotifyLimitUpdated,
+}) => {
+  const [notifyLimit, setNotifyLimit] = useState("");
   const [inventoryDetails, setInventoryDetails] = useState(null);
 
   // Fetch existing inventory details
   useEffect(() => {
     const fetchInventoryDetails = async () => {
       try {
-        const response = await axios.get(`https://localhost:7274/api/Inventory/${inventoryId}`); // Fetch inventory details
+        const response = await AxiosInstance.get(`/Inventory/${inventoryId}`); // Fetch inventory details
         setInventoryDetails(response.data); // Store the existing inventory details
         setNotifyLimit(response.data.notifyLimit); // Pre-fill the notify limit with the current value
       } catch (error) {
-        console.error('Error fetching inventory details:', error);
-        alert('Error fetching inventory details.');
+        console.error("Error fetching inventory details:", error);
+        // alert('Error fetching inventory details.');
+        toast.error("Error fetching inventory details."); // Show error message using toast
       }
     };
 
     fetchInventoryDetails();
   }, [inventoryId]);
- 
+
   // Handle form submission
   const handleSubmit = async () => {
     if (!inventoryDetails) {
-      alert('Unable to update. Inventory details not loaded.');
+      // alert('Unable to update. Inventory details not loaded.');
+      toast.error("Unable to update. Inventory details not loaded."); // Show error message using toast
       return;
     }
 
@@ -38,16 +46,18 @@ const UpdateNotifyLimitModal = ({ inventoryId, onClose, onNotifyLimitUpdated }) 
         notifyLimit: parseInt(notifyLimit), // Updated notify limit
       };
       // Send the updated data to the backend
-      await axios.put(`https://localhost:7274/api/Inventory/${inventoryId}`, payload);
-      alert('Notify limit updated successfully!');
+      await AxiosInstance.put(`/Inventory/${inventoryId}`, payload);
+      // alert('Notify limit updated successfully!');
+      toast.success("Notify limit updated successfully!"); // Show success message using toast
       onNotifyLimitUpdated(); // Refresh the inventory list
       onClose(); // Close the modal
     } catch (error) {
-      console.error('Error updating notify limit:', error);
-      alert('Error updating notify limit.');
+      console.error("Error updating notify limit:", error);
+      // alert('Error updating notify limit.');
+      toast.error("Error updating notify limit."); // Show error message using toast
     }
   };
- 
+
   return (
     <div className="notify-modal">
       <div className="notify-modal-content">
@@ -55,16 +65,16 @@ const UpdateNotifyLimitModal = ({ inventoryId, onClose, onNotifyLimitUpdated }) 
         {inventoryDetails ? (
           <div>
             <div className="notify-details">
-            {/* <p>
+              {/* <p>
               <strong>Book Title:</strong> {inventoryDetails.bookManagement?.title}
             </p>
             <p>
               <strong>Current Quantity:</strong> {inventoryDetails.quantity}
             </p> */}
-            <p className="label">Book Title:</p>
-            <p className="value">{inventoryDetails.bookManagement?.title}</p>
-            <p className="label">Current Quantity:</p>
-            <p className="value">{inventoryDetails.quantity}</p>
+              <p className="label">Book Title:</p>
+              <p className="value">{inventoryDetails.bookManagement?.title}</p>
+              <p className="label">Current Quantity:</p>
+              <p className="value">{inventoryDetails.quantity}</p>
             </div>
             <form>
               <div className="notify-form-group">
@@ -87,7 +97,7 @@ const UpdateNotifyLimitModal = ({ inventoryId, onClose, onNotifyLimitUpdated }) 
                 </button>
               </div>
             </form>
-    </div>
+          </div>
         ) : (
           <p>Loading inventory details...</p>
         )}
@@ -95,5 +105,5 @@ const UpdateNotifyLimitModal = ({ inventoryId, onClose, onNotifyLimitUpdated }) 
     </div>
   );
 };
- 
+
 export default UpdateNotifyLimitModal;

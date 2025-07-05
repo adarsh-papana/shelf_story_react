@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom"; // Import useParams for dynamic userId
-import axios from "axios"; // Import Axios for API requests
-import { jwtDecode } from "jwt-decode";  // Import jwt-decode
+import { jwtDecode } from "jwt-decode"; // Import jwt-decode
 import "./Profilemang.css";
+import AxiosInstance from "./AxiosInstance";
 
 function Profilemang() {
   const navigate = useNavigate(); // Initialize useNavigate hook
   const { userId } = useParams(); // Get userId dynamically from the route parameter
   const [userInfo, setUserInfo] = useState(null); // State to store user information
   const [error, setError] = useState(""); // State to store error messages
-const [userID , setUserID] = useState(null); // State to store user ID  
-  // Fetch user information when the component mounts
+  const [userID, setUserID] = useState(null); // State to store user ID
+
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
@@ -29,17 +29,18 @@ const [userID , setUserID] = useState(null); // State to store user ID
         // const UserId = parseInt(userId, 10);
         console.log("Extracted userId:", userId);
         if (!userId || isNaN(userId)) {
-            throw new Error("Invalid userId extracted from token");
-          }
-        const response = await axios.get(
-          `https://localhost:7274/api/User/UserById/${userId}`, // Use the userId from the route parameter
-          {
-            headers: {
-              Authorization: `Bearer ${token}`, // Include the token in the Authorization header
-            },
-          }
-        );
-          localStorage.setItem("userId", userId); // Store the userId in localStorage
+          throw new Error("Invalid userId extracted from token");
+        }
+        // const response = await axios.get(
+        //   `https://localhost:7274/api/User/UserById/${userId}`, // Use the userId from the route parameter
+        //   {
+        //     headers: {
+        //       Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+        //     },
+        //   }
+        // );
+        const response = await AxiosInstance.get(`/User/UserById/${userId}`);
+        localStorage.setItem("userId", userId); // Store the userId in localStorage
         setUserInfo(response.data); // Set the fetched user information
       } catch (err) {
         console.error("Error fetching user information:", err);
@@ -49,9 +50,12 @@ const [userID , setUserID] = useState(null); // State to store user ID
           localStorage.removeItem("token"); // Remove the invalid token
           navigate("/login"); // Redirect to login page
         } else {
-          setError(err.response?.data?.message || "Failed to fetch user information.");
+          setError(
+            err.response?.data?.message || "Failed to fetch user information."
+          );
         }
-      }return userId;
+      }
+      return userId;
     };
 
     fetchUserInfo();
@@ -67,25 +71,27 @@ const [userID , setUserID] = useState(null); // State to store user ID
       {userInfo ? (
         <div className="profile-card">
           <div className="profile-icon">
-            <img
-              src="/profile-user.png"
-              alt="Profile Icon"
-            />
+            <img src="/profile-user.png" alt="Profile Icon" />
           </div>
           <div className="profile-details">
-            <p><strong>Name:</strong> {userInfo.name}</p>
-            <p><strong>Email:</strong> {userInfo.email}</p>
-            <p><strong>Role:</strong> {userInfo.role}</p>
-            
+            <p>
+              <strong>Name:</strong> {userInfo.name}
+            </p>
+            <p>
+              <strong>Email:</strong> {userInfo.email}
+            </p>
+            <p>
+              <strong>Role:</strong> {userInfo.role}
+            </p>
           </div>
         </div>
-        ) : (
-          <p>Loading user information...</p>
-        )}
-        <button className="back-button" onClick={() => navigate("/")}>
-          Back to Dashboard
-        </button>
-      </div>
+      ) : (
+        <p>Loading user information...</p>
+      )}
+      <button className="back-button" onClick={() => navigate("/")}>
+        Back to Dashboard
+      </button>
+    </div>
   );
 }
 

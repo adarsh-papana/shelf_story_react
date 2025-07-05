@@ -1,39 +1,28 @@
 .admin-notification-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    top: 100%;
-  }
-   
-  /* .notification-icon {
-    background: none;
-    border: none;
-    cursor: pointer;
-  }
-   
-  .notification-icon img {
-    width: 24px;
-    height: 24px;
-  } */
-   
-  .notification-dropdown {
-    position: absolute;
-    right: 0;
-    top: 100%;
-    transform: translateX(-50%);
-    left: 50%;
-    background-color: white;
-    border: 1px solid #ccc;
-    width: 300px;
-    max-height: 300px;
-    overflow-y: auto;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    z-index: 10;
-    border-radius: 8px;
-  }
-   
-  .notification-item {
-    padding: 10px;
-    border-bottom: 1px solid #eee;
-  }
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  top: 100%;
+}
+
+.notification-dropdown {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  transform: translateX(-50%);
+  left: 50%;
+  background-color: white;
+  border: 1px solid #ccc;
+  width: 300px;
+  max-height: 300px;
+  overflow-y: auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  border-radius: 8px;
+}
+
+.notification-item {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}

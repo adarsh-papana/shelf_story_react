@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import '../style/AddNewBookModal.css'; // Create and style this CSS file
- 
+import React, { useState } from "react";
+// import axios from "axios";
+import AxiosInstance from "../AxiosInstance";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; // Import toastify CSS
+import "../style/AddNewBookModal.css"; // Create and style this CSS file
+
 const AddNewBookModal = ({ onClose, onBookAdded }) => {
   const [formData, setFormData] = useState({
     title: "",
@@ -17,10 +20,10 @@ const AddNewBookModal = ({ onClose, onBookAdded }) => {
       categoryName: "",
     },
   });
- 
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
 
     if (name === "categoryID") {
       setFormData((prev) => ({
@@ -28,9 +31,7 @@ const AddNewBookModal = ({ onClose, onBookAdded }) => {
         categoryID: value,
         category: { ...prev.category, categoryID: value },
       }));
-    }
-    
-    else if (name.startsWith("author.")) {
+    } else if (name.startsWith("author.")) {
       const field = name.split(".")[1]; // Extract the nested field name
       setFormData((prev) => ({
         ...prev,
@@ -47,7 +48,7 @@ const AddNewBookModal = ({ onClose, onBookAdded }) => {
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
   };
- 
+
   const handleSubmit = async () => {
     try {
       const payload = {
@@ -63,39 +64,20 @@ const AddNewBookModal = ({ onClose, onBookAdded }) => {
           categoryID: formData.category.categoryID,
           categoryName: formData.category.categoryName,
         },
-
-        // bookID: parseInt(formData.bookID),
-        // quantity: parseInt(formData.quantity),
-        // notifyLimit: parseInt(formData.notifyLimit),
-        // bookManagement: {
-        //   bookID: parseInt(formData.bookID),
-        //   title: formData.title,
-        //   authorID: parseInt(formData.authorID),
-        //   categoryID: formData.categoryID,
-        //   price: parseFloat(formData.price),
-        //   stockQuantity: formData.stockQuantity,
-        //   imageURL: formData.imageURL,
-        //   author: {
-        //     authorID: parseInt(formData.authorID),
-        //     authorName: formData.authorName
-        //   },
-        //   category: {
-        //     categoryID: formData.categoryID,
-        //     categoryName: formData.categoryName
-        //   }
-        // }
       };
- 
-      await axios.post(`https://localhost:7274/api/BookManagement`, payload);
-      alert('New book added successfully!');
+
+      await AxiosInstance.post(`/BookManagement`, payload);
+      // alert('New book added successfully!');
+      toast.success("New book added successfully!");
       onBookAdded(); // Refresh inventory list
       onClose();
     } catch (error) {
-      console.error('Error adding book:', error);
-      alert('Error adding book. Check the inputs.');
+      console.error("Error adding book:", error);
+      // alert('Error adding book. Check the inputs.');
+      toast.error("Error adding book. Check the inputs.");
     }
   };
- 
+
   return (
     <div className="book-modal">
       <div className="book-modal-content">
@@ -111,7 +93,7 @@ const AddNewBookModal = ({ onClose, onBookAdded }) => {
               required
             />
           </label>
-          
+
           <label>
             Category ID:
             <input
@@ -122,7 +104,7 @@ const AddNewBookModal = ({ onClose, onBookAdded }) => {
               required
             />
           </label>
-          
+
           <label>
             Price:
             <input
@@ -162,6 +144,7 @@ const AddNewBookModal = ({ onClose, onBookAdded }) => {
               required
             />
           </label>
+
           <label>
             Category ID (Nested):
             <input
@@ -202,12 +185,12 @@ const AddNewBookModal = ({ onClose, onBookAdded }) => {
             placeholder={key}
             style={{ marginBottom: '8px' }}
           />
-        ))} */}
-        {/* <button onClick={handleSubmit}>Add Book</button>
+          ))}
+        <button onClick={handleSubmit}>Add Book</button>
         <button onClick={onClose}>Cancel</button> */}
       </div>
     </div>
   );
 };
- 
+
 export default AddNewBookModal;

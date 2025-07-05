@@ -2,17 +2,14 @@ import React, { useState } from "react";
 import axios from "axios"; // Import axios instance
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import "./Login.css"; // Import the CSS file for styling
-import Update from './Update'; // Import Update component
+import Update from "./Update"; // Import Update component
 import Dashboard from "./Dashboard";
-import InventoryPage from "./components/InventoryPage"; 
-
-
+import InventoryPage from "./components/InventoryPage";
 
 const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    
   });
 
   const [error, setError] = useState("");
@@ -26,34 +23,33 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-
     setSuccess("");
 
     console.log("Sending request to backend:", formData); // Debugging
 
     try {
       localStorage.clear();
-      const response = await axios.post("https://localhost:7274/api/User/authentication", formData);
+      const response = await axios.post(
+        "https://localhost:7274/api/User/authentication",
+        formData
+      );
       console.log("Response received:", response.data);
       setSuccess("Login successful!");
-      localStorage.setItem('token', response.data);
-      const decodedToken = JSON.parse(atob(response.data.split('.')[1]));
+      localStorage.setItem("token", response.data);
+      const decodedToken = JSON.parse(atob(response.data.split(".")[1]));
       const role = decodedToken.role;
       localStorage.setItem("role", role);
-      console.log('Login successful:', response.data);
-       
+      console.log("Login successful:", response.data);
 
-      if (role === 'Admin') {
-        navigate('/inventory', { replace: true });
-      } 
-      else {
-        navigate('/', { replace: true });
+      if (role === "Admin") {
+        navigate("/inventory", { replace: true });
+      } else {
+        navigate("/", { replace: true });
       }
-    }  
-    catch (err) {
+    } catch (err) {
       console.error("Error response:", err.response);
-      alert("Enter valid credentials");
-      setError(err.response?.data?.message || "Login failed");
+      // alert("Enter valid credentials");
+      setError(err.response?.data?.message || "Invalid credentials");
     }
   };
 
@@ -63,9 +59,8 @@ const Login = () => {
 
   const handleForgotPasswordClick = () => {
     navigate("/Update"); // Navigate to Forgot Password component
-  }
-  
-  
+  };
+
   return (
     <div className="login-wrapper">
       <div className="wrapper">
@@ -92,12 +87,22 @@ const Login = () => {
             <label>Enter your password</label>
           </div>
           <div className="forget">
-            <a href="#" onClick={handleForgotPasswordClick}>Forgot password?</a>
+            <a href="#" onClick={handleForgotPasswordClick}>
+              Forgot password?
+            </a>
           </div>
-          <button className="submit-button" type="submit">Log In</button>
+          <button className="submit-button" type="submit">
+            Log In
+          </button>
+          {error && (
+            <div style={{ color: "red", marginTop: "10px" }}>{error}</div>
+          )}
           <div className="register">
             <p>
-              Don't have an account? <a href="#" onClick={handleRegisterClick}>Register</a>
+              Don't have an account?{" "}
+              <a href="#" onClick={handleRegisterClick}>
+                Register
+              </a>
             </p>
           </div>
         </form>
